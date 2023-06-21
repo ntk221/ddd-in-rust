@@ -30,3 +30,27 @@ impl Add for Money {
         Money::new(new_amount, self.currency)
     }
 }
+
+/*
+    こういうのはありなのかな？
+    impl Add for Money {
+    type Output = Option<Money>;
+
+    fn add(self, other: Money) -> Self::Output {
+        if self.currency != other.currency {
+            return None;
+        }
+        let new_amount = self.amount + other.amount;
+        Some(Money::new(new_amount, self.currency))
+    }
+}
+*/
+
+#[test]
+fn _2_29() {
+    let my_money = Money::new(Decimal::new(1000, 0), "JPY".to_string());
+    let allowance = Money::new(Decimal::new(3000, 0), "JPY".to_string());
+
+    let result = my_money + allowance;
+    println!("{}", result.amount);
+}
